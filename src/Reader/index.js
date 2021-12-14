@@ -4,17 +4,12 @@ import { ReadButton } from '../ReadButton';
 
 import './Reader.css';
 
-const Reader = ({ setOpenModal, text }) => {
+const Reader = ({ setOpenModal, text, numberOfWords }) => {
   const [textToShow, setTextToShow] = React.useState('');
   const [position, setPosition] = React.useState(0);
 
   let length = 0;
   let ArrayWords = [];
-
-  // const onKeyDown = (ev) => {
-  //   if (ev.key === 'ArrowLeft') return prevWord();
-  //   if (ev.key === 'ArrowRight') return nextWord();
-  // };
 
   const onClickButton = () => {
     setOpenModal((prevState) => !prevState);
@@ -22,28 +17,29 @@ const Reader = ({ setOpenModal, text }) => {
 
   const prevWord = () => {
     if (!position > 0) return;
-    setPosition((prevState) => prevState - 1);
+    setPosition((prevState) => prevState - numberOfWords);
   };
   const nextWord = () => {
     if (position >= length) return;
-    setPosition((prevState) => prevState + 1);
+    setPosition((prevState) => prevState + numberOfWords);
   };
 
   const splitWords = () => {
     ArrayWords = text.split(' ');
     length = ArrayWords.length - 1;
-    setTextToShow(ArrayWords[position]);
+    setText(ArrayWords);
   };
 
-  // const setText = (numOfWords) => {
-  //   let newText = '';
-  //   ArrayWords.forEach((word, index) => {
-  //     if (index > numOfWords - 1) return;
-  //     newText += word + ' ';
-  //   });
+  const setText = (ArrayWords) => {
+    let text = ArrayWords[position];
 
-  //   setTextToShow(newText);
-  // };
+    for (let i = 1; i < numberOfWords; i++) {
+      // if (!ArrayWords[position + i]) return;
+      text += ' ' + ArrayWords[position + i];
+    }
+
+    setTextToShow(text);
+  };
 
   React.useEffect(() => {
     splitWords(position);
