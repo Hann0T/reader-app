@@ -38,6 +38,7 @@ const Reader = ({ setOpenModal, text, numberOfWords }) => {
       text += ' ' + ArrayWords[position + i];
     }
 
+    if (!text) return setTextToShow('type something');
     setTextToShow(text);
   };
 
