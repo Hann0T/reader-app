@@ -9,10 +9,15 @@ import './App.css';
 function App() {
   const [openModal, setOpenModal] = React.useState(false);
   const [text, setText] = React.useState('');
+  const [numberOfWords, setNumberOfWords] = React.useState(1);
 
-  const onChange = (ev) => {
+  const onChangeTextArea = (ev) => {
     let text = ev.target.value;
     setText(text);
+  };
+  const onChangeInput = (ev) => {
+    let number = parseInt(ev.target.value);
+    setNumberOfWords(number);
   };
 
   const onClickButton = () => {
@@ -22,9 +27,15 @@ function App() {
   return (
     <section className='presentation'>
       <div className='container'>
+        <input
+          className='number-input'
+          value={numberOfWords}
+          type='number'
+          onChange={onChangeInput}
+        />
         <textarea
           value={text}
-          onChange={onChange}
+          onChange={onChangeTextArea}
           placeholder='your text...'
           className='text-input'
         />
@@ -34,7 +45,11 @@ function App() {
       </div>
       {openModal && (
         <Modal>
-          <Reader text={text} setOpenModal={setOpenModal} />
+          <Reader
+            text={text}
+            numberOfWords={numberOfWords}
+            setOpenModal={setOpenModal}
+          />
         </Modal>
       )}
     </section>
