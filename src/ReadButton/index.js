@@ -1,8 +1,11 @@
 import React from 'react';
 
-const ReadButton = ({ onClickButton, text }) => {
+import './ReadButton.css';
+
+const ReadButton = ({ onClickButton, text, customClass }) => {
+  if (!customClass) customClass = '';
   return (
-    <button onClick={onClickButton} className='button'>
+    <button onClick={onClickButton} className={`button ${customClass}`}>
       {text}
     </button>
   );
