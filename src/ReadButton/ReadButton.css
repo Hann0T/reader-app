@@ -1,0 +1,17 @@
+.button {
+  padding: 0.5em 1em;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.button:hover {
+  color: white;
+  background-color: black;
+}
+
+.button-absolute {
+  position: absolute;
+  right: -1em;
+  top: -1em;
+}
