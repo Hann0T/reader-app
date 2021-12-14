@@ -52,7 +52,11 @@ const Reader = ({ setOpenModal, text }) => {
   return (
     <section className='reader'>
       <div className='container'>
-        <ReadButton onClickButton={onClickButton} text={'Close'} />
+        <ReadButton
+          onClickButton={onClickButton}
+          customClass={'button-absolute'}
+          text={'x'}
+        />
         <p className='reader-text'>{textToShow}</p>
         <div className='button-container'>
           <ReadButton onClickButton={prevWord} text={'prev'} />
