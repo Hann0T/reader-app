@@ -1,25 +1,44 @@
-import logo from './logo.svg';
+import React from 'react';
+
+import { Modal } from '../Modal';
+import { ReadButton } from '../ReadButton';
+import { Reader } from '../Reader';
+
 import './App.css';
 
 function App() {
+  const [openModal, setOpenModal] = React.useState(false);
+  const [text, setText] = React.useState('');
+
+  const onChange = (ev) => {
+    let text = ev.target.value;
+    setText(text);
+  };
+
+  const onClickButton = () => {
+    setOpenModal((prevState) => !prevState);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <section className='presentation'>
+      <div className='container'>
+        <textarea
+          value={text}
+          onChange={onChange}
+          placeholder='your text...'
+          className='text-input'
+        />
+        <div className='button-container'>
+          <ReadButton onClickButton={onClickButton} text={'Read Text'} />
+        </div>
+      </div>
+      {openModal && (
+        <Modal>
+          <Reader text={text} setOpenModal={setOpenModal} />
+        </Modal>
+      )}
+    </section>
   );
 }
 
-export default App;
+export { App };
