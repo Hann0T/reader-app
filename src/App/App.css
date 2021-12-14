@@ -20,15 +20,3 @@
   justify-content: space-around;
   gap: 30px;
 }
-
-.button {
-  padding: 0.5em 1em;
-  background-color: white;
-  border: 1px solid black;
-  border-radius: 5px;
-  cursor: pointer;
-}
-.button:hover {
-  color: white;
-  background-color: black;
-}
