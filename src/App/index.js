@@ -32,6 +32,7 @@ function App() {
           value={numberOfWords}
           type='number'
           onChange={onChangeInput}
+          min='1'
         />
         <textarea
           value={text}
