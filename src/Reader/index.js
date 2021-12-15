@@ -7,9 +7,9 @@ import './Reader.css';
 const Reader = ({ toggleModal, text, numberOfWords }) => {
   const [textToShow, setTextToShow] = React.useState('');
   const [position, setPosition] = React.useState(0);
+  const [length, setLength] = React.useState(0);
+  const [arrayWords, setArrayWords] = React.useState([]);
 
-  let length = 0;
-  let ArrayWords = [];
   let keyInput = React.createRef();
 
   const prevWord = () => {
@@ -21,34 +21,36 @@ const Reader = ({ toggleModal, text, numberOfWords }) => {
     setPosition((prevState) => prevState + numberOfWords);
   };
 
-  const splitWords = () => {
-    ArrayWords = text.split(/ |\n/);
-    ArrayWords = ArrayWords.filter((word) => word);
-    length = ArrayWords.length - 1;
-    setText(ArrayWords);
-  };
-
-  const setText = (ArrayWords) => {
-    let text = ArrayWords[position];
-
-    for (let i = 1; i < numberOfWords; i++) {
-      // if (!ArrayWords[position + i]) return;
-      text += ' ' + ArrayWords[position + i];
-    }
-
-    if (!text) return setTextToShow('type something');
-    setTextToShow(text);
-  };
-
   const keyDown = (ev) => {
     if (ev.key === 'ArrowLeft') return prevWord();
     if (ev.key === 'ArrowRight') return nextWord();
     if (ev.key === 'Escape') return toggleModal();
   };
 
+  const setText = () => {
+    console.log('asdf');
+    let text = arrayWords[position];
+
+    for (let i = 1; i < numberOfWords; i++) {
+      // if (!ArrayWords[position + i]) return;
+      text += ' ' + arrayWords[position + i];
+    }
+
+    if (!text) return setTextToShow('type something');
+    setTextToShow(text);
+  };
+
   React.useEffect(() => {
-    splitWords(position);
+    let newArrayWords = text.split(/ |\n/);
+    let newArrayWordsFixed = newArrayWords.filter((word) => word);
+    let arrayLength = newArrayWordsFixed.length - 1;
+    setArrayWords(newArrayWordsFixed);
+    setLength(arrayLength);
+  }, [text]);
+
+  React.useEffect(() => {
     keyInput.current.focus();
+    setText();
   });
 
   return (
