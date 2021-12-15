@@ -4,16 +4,13 @@ import { ReadButton } from '../ReadButton';
 
 import './Reader.css';
 
-const Reader = ({ setOpenModal, text, numberOfWords }) => {
+const Reader = ({ toggleModal, text, numberOfWords }) => {
   const [textToShow, setTextToShow] = React.useState('');
   const [position, setPosition] = React.useState(0);
 
   let length = 0;
   let ArrayWords = [];
-
-  const onClickButton = () => {
-    setOpenModal((prevState) => !prevState);
-  };
+  let keyInput = React.createRef();
 
   const prevWord = () => {
     if (!position > 0) return;
@@ -25,7 +22,8 @@ const Reader = ({ setOpenModal, text, numberOfWords }) => {
   };
 
   const splitWords = () => {
-    ArrayWords = text.split(' ');
+    ArrayWords = text.split(/ |\n/);
+    ArrayWords = ArrayWords.filter((word) => word);
     length = ArrayWords.length - 1;
     setText(ArrayWords);
   };
@@ -42,15 +40,22 @@ const Reader = ({ setOpenModal, text, numberOfWords }) => {
     setTextToShow(text);
   };
 
+  const keyDown = (ev) => {
+    if (ev.key === 'ArrowLeft') return prevWord();
+    if (ev.key === 'ArrowRight') return nextWord();
+    if (ev.key === 'Escape') return toggleModal();
+  };
+
   React.useEffect(() => {
     splitWords(position);
+    keyInput.current.focus();
   });
 
   return (
-    <section className='reader'>
+    <section tabIndex='0' ref={keyInput} onKeyDown={keyDown} className='reader'>
       <div className='container'>
         <ReadButton
-          onClickButton={onClickButton}
+          onClickButton={toggleModal}
           customClass={'button-absolute'}
           text={'x'}
         />
