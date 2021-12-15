@@ -48,7 +48,7 @@ function App() {
           <Reader
             text={text}
             numberOfWords={numberOfWords}
-            setOpenModal={setOpenModal}
+            toggleModal={onClickButton}
           />
         </Modal>
       )}
