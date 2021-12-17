@@ -28,16 +28,14 @@ const Reader = ({ toggleModal, text, numberOfWords }) => {
   };
 
   const setText = () => {
-    console.log('asdf');
-    let text = arrayWords[position];
+    let localText = arrayWords[position];
 
     for (let i = 1; i < numberOfWords; i++) {
-      // if (!ArrayWords[position + i]) return;
-      text += ' ' + arrayWords[position + i];
+      localText += ' ' + arrayWords[position + i];
     }
 
-    if (!text) return setTextToShow('type something');
-    setTextToShow(text);
+    if (!localText) return setTextToShow('type something');
+    setTextToShow(localText);
   };
 
   React.useEffect(() => {
