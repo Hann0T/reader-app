@@ -6,7 +6,7 @@
   box-sizing: border-box;
   padding: 1em;
   width: 80%;
-  height: 60vh;
+  height: 75vh;
   background-color: white;
   border-radius: 5px;
   text-align: center;
@@ -15,4 +15,33 @@
 .reader-text {
   font-size: 2em;
   margin: 1rem 0;
+}
+
+.fontsize-changer {
+  position: absolute;
+  top: 1em;
+  left: 50%;
+  width: 150px;
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0 10px;
+  flex-wrap: wrap;
+  transform: translateX(-50%);
+}
+
+.fontsize-text {
+  flex-basis: 100%;
+}
+
+.autoplay-controllers {
+  position: absolute;
+  bottom: 2em;
+  left: 50%;
+  width: 200px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transform: translateX(-50%);
 }
