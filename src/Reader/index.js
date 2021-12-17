@@ -5,10 +5,12 @@ import { ReadButton } from '../ReadButton';
 import './Reader.css';
 
 const Reader = ({ toggleModal, text, numberOfWords }) => {
+  const [arrayWords, setArrayWords] = React.useState([]);
+  const [length, setLength] = React.useState(0);
+
+  const [fontsize, setFontsize] = React.useState(2);
   const [textToShow, setTextToShow] = React.useState('');
   const [position, setPosition] = React.useState(0);
-  const [length, setLength] = React.useState(0);
-  const [arrayWords, setArrayWords] = React.useState([]);
 
   let keyInput = React.createRef();
 
@@ -17,7 +19,7 @@ const Reader = ({ toggleModal, text, numberOfWords }) => {
     setPosition((prevState) => prevState - numberOfWords);
   };
   const nextWord = () => {
-    if (position >= length) return;
+    if (position > length) return;
     setPosition((prevState) => prevState + numberOfWords);
   };
 
@@ -28,16 +30,25 @@ const Reader = ({ toggleModal, text, numberOfWords }) => {
   };
 
   const setText = () => {
-    console.log('asdf');
-    let text = arrayWords[position];
+    let localText = arrayWords[position];
 
     for (let i = 1; i < numberOfWords; i++) {
       // if (!ArrayWords[position + i]) return;
-      text += ' ' + arrayWords[position + i];
+      localText += ' ' + arrayWords[position + i];
     }
 
-    if (!text) return setTextToShow('type something');
-    setTextToShow(text);
+    if (!localText) return setTextToShow('type something');
+    setTextToShow(localText);
+  };
+
+  const incrementFontsize = () => {
+    if (fontsize >= 10) return;
+    setFontsize((prevState) => prevState + 1);
+  };
+
+  const decrementFontsize = () => {
+    if (fontsize <= 2) return;
+    setFontsize((prevState) => prevState - 1);
   };
 
   React.useEffect(() => {
@@ -61,7 +72,14 @@ const Reader = ({ toggleModal, text, numberOfWords }) => {
           customClass={'button-absolute'}
           text={'x'}
         />
-        <p className='reader-text'>{textToShow}</p>
+        <div className='button-container'>
+          <ReadButton onClickButton={incrementFontsize} text={'+'} />
+          <p>{fontsize}</p>
+          <ReadButton onClickButton={decrementFontsize} text={'-'} />
+        </div>
+        <p className='reader-text' style={{ fontSize: `${fontsize}em` }}>
+          {textToShow}
+        </p>
         <div className='button-container'>
           <ReadButton onClickButton={prevWord} text={'prev'} />
           <ReadButton onClickButton={nextWord} text={'next'} />
