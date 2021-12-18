@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { ReadButton } from '../ReadButton';
-import { AutoPlay } from '../AutoPlay';
+import { Button } from '../Button';
+import { AutoplayControllers } from '../AutoplayControllers';
 
 const ReaderUI = ({
   keyInput,
@@ -12,26 +12,33 @@ const ReaderUI = ({
   fontsize,
   textToShow,
   prevWord,
-  nextWord,
+  renderText,
+  toggleAutoplay,
+  increaseAutoplaySpeed,
+  decreaseAutoplaySpeed,
 }) => {
   return (
     <section tabIndex='0' ref={keyInput} onKeyDown={keyDown} className='reader'>
       <div className='container'>
-        <ReadButton
+        <Button
           onClickButton={toggleModal}
           customClass={'button-absolute'}
           text={'x'}
         />
         <div className='fontsize-changer'>
           <p className='fontsize-text'>resize</p>
-          <ReadButton onClickButton={increaseFontsize} text={'+'} />
+          <Button onClickButton={increaseFontsize} text={'+'} />
           <p className='fontsize-indicator'>{fontsize}</p>
-          <ReadButton onClickButton={decreaseFontsize} text={'-'} />
+          <Button onClickButton={decreaseFontsize} text={'-'} />
         </div>
         <p className='reader-text' style={{ fontSize: `${fontsize}em` }}>
           {textToShow}
         </p>
-        <AutoPlay />
+        <AutoplayControllers
+          increaseAutoplaySpeed={increaseAutoplaySpeed}
+          decreaseAutoplaySpeed={decreaseAutoplaySpeed}
+          toggleAutoplay={toggleAutoplay}
+        />
       </div>
     </section>
   );
