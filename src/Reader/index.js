@@ -6,11 +6,13 @@ import './Reader.css';
 
 const Reader = ({ toggleModal, text, numberOfWords }) => {
   const [arrayWords, setArrayWords] = React.useState([]);
-  const [length, setLength] = React.useState(0);
+  const [arrayLastPosition, setArrayLastPosition] = React.useState(0);
 
   const [fontsize, setFontsize] = React.useState(2);
   const [textToShow, setTextToShow] = React.useState('');
   const [position, setPosition] = React.useState(0);
+  const [isAutoplay, setIsAutoplay] = React.useState(false);
+  const [autoplaySpeed, setAutoplaySpeed] = React.useState(1000);
 
   let keyInput = React.createRef();
 
@@ -20,7 +22,7 @@ const Reader = ({ toggleModal, text, numberOfWords }) => {
   };
 
   const nextWord = () => {
-    if (position > length) return;
+    if (position > arrayLastPosition) return;
     setPosition((prevState) => prevState + numberOfWords);
   };
 
@@ -40,26 +42,55 @@ const Reader = ({ toggleModal, text, numberOfWords }) => {
     if (ev.key === 'ArrowUp') return increaseFontsize();
     if (ev.key === 'ArrowDown') return decreaseFontsize();
     if (ev.key === 'Escape') return toggleModal();
+    if (ev.key === ' ') return toggleAutoplay();
   };
 
   const renderText = () => {
-    let localText = arrayWords[position];
+    let localText = arrayWords[position] ? arrayWords[position] : '';
 
     for (let i = 1; i < numberOfWords; i++) {
-      // if (!ArrayWords[position + i]) return;
-      localText += ' ' + arrayWords[position + i];
+      localText += ' ';
+      localText += arrayWords[position + i] ? arrayWords[position + i] : '';
     }
 
-    if (!localText) return setTextToShow('type something');
+    if (position >= arrayLastPosition + 1) localText = 'Se acabo el texto';
+    if (arrayLastPosition < 0) localText = 'No hay texto para mostrar';
+
     setTextToShow(localText);
   };
+
+  const toggleAutoplay = () => {
+    setIsAutoplay((prevState) => !prevState);
+  };
+
+  const increaseAutoplaySpeed = () => {
+    if (autoplaySpeed <= 500) return;
+    setAutoplaySpeed((prevState) => prevState - 500);
+  };
+
+  const decreaseAutoplaySpeed = () => {
+    if (autoplaySpeed >= 5000) return;
+    setAutoplaySpeed((prevState) => prevState + 500);
+  };
+
+  // AutoPlay
+  React.useEffect(() => {
+    if (!isAutoplay) return;
+    if (textToShow === 'Se termino el texto') return;
+    const myInterval = setInterval(() => {
+      nextWord();
+    }, autoplaySpeed);
+    return () => {
+      clearInterval(myInterval);
+    };
+  });
 
   React.useEffect(() => {
     let newArrayWords = text.split(/ |\n/);
     let newArrayWordsFixed = newArrayWords.filter((word) => word);
-    let arrayLength = newArrayWordsFixed.length - 1;
+    let arrayLastPosition = newArrayWordsFixed.length - 1;
     setArrayWords(newArrayWordsFixed);
-    setLength(arrayLength);
+    setArrayLastPosition(arrayLastPosition);
   }, [text]);
 
   React.useEffect(() => {
@@ -78,6 +109,10 @@ const Reader = ({ toggleModal, text, numberOfWords }) => {
       textToShow={textToShow}
       prevWord={prevWord}
       nextWord={nextWord}
+      renderText={renderText}
+      toggleAutoplay={toggleAutoplay}
+      increaseAutoplaySpeed={increaseAutoplaySpeed}
+      decreaseAutoplaySpeed={decreaseAutoplaySpeed}
     />
   );
 };
