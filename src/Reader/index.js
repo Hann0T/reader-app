@@ -1,14 +1,18 @@
 import React from 'react';
 
-import { ReadButton } from '../ReadButton';
+import { ReaderUI } from './ReaderUI';
 
 import './Reader.css';
 
 const Reader = ({ toggleModal, text, numberOfWords }) => {
+  const [arrayWords, setArrayWords] = React.useState([]);
+  const [arrayLastPosition, setArrayLastPosition] = React.useState(0);
+
+  const [fontsize, setFontsize] = React.useState(2);
   const [textToShow, setTextToShow] = React.useState('');
   const [position, setPosition] = React.useState(0);
-  const [length, setLength] = React.useState(0);
-  const [arrayWords, setArrayWords] = React.useState([]);
+  const [isAutoplay, setIsAutoplay] = React.useState(false);
+  const [autoplaySpeed, setAutoplaySpeed] = React.useState(1000);
 
   let keyInput = React.createRef();
 
@@ -16,56 +20,100 @@ const Reader = ({ toggleModal, text, numberOfWords }) => {
     if (!position > 0) return;
     setPosition((prevState) => prevState - numberOfWords);
   };
+
   const nextWord = () => {
-    if (position >= length) return;
+    if (position > arrayLastPosition) return;
     setPosition((prevState) => prevState + numberOfWords);
+  };
+
+  const increaseFontsize = () => {
+    if (fontsize >= 10) return;
+    setFontsize((prevState) => prevState + 1);
+  };
+
+  const decreaseFontsize = () => {
+    if (fontsize <= 2) return;
+    setFontsize((prevState) => prevState - 1);
   };
 
   const keyDown = (ev) => {
     if (ev.key === 'ArrowLeft') return prevWord();
     if (ev.key === 'ArrowRight') return nextWord();
+    if (ev.key === 'ArrowUp') return increaseFontsize();
+    if (ev.key === 'ArrowDown') return decreaseFontsize();
     if (ev.key === 'Escape') return toggleModal();
+    if (ev.key === ' ') return toggleAutoplay();
   };
 
-  const setText = () => {
-    let localText = arrayWords[position];
+  const renderText = () => {
+    let localText = arrayWords[position] ? arrayWords[position] : '';
 
     for (let i = 1; i < numberOfWords; i++) {
-      localText += ' ' + arrayWords[position + i];
+      localText += ' ';
+      localText += arrayWords[position + i] ? arrayWords[position + i] : '';
     }
 
-    if (!localText) return setTextToShow('type something');
+    if (position >= arrayLastPosition + 1) localText = 'Se acabo el texto';
+    if (arrayLastPosition < 0) localText = 'No hay texto para mostrar';
+
     setTextToShow(localText);
   };
+
+  const toggleAutoplay = () => {
+    setIsAutoplay((prevState) => !prevState);
+  };
+
+  const increaseAutoplaySpeed = () => {
+    if (autoplaySpeed <= 500) return;
+    setAutoplaySpeed((prevState) => prevState - 500);
+  };
+
+  const decreaseAutoplaySpeed = () => {
+    if (autoplaySpeed >= 5000) return;
+    setAutoplaySpeed((prevState) => prevState + 500);
+  };
+
+  // AutoPlay
+  React.useEffect(() => {
+    if (!isAutoplay) return;
+    if (textToShow === 'Se termino el texto') return;
+    const myInterval = setInterval(() => {
+      nextWord();
+    }, autoplaySpeed);
+    return () => {
+      clearInterval(myInterval);
+    };
+  });
 
   React.useEffect(() => {
     let newArrayWords = text.split(/ |\n/);
     let newArrayWordsFixed = newArrayWords.filter((word) => word);
-    let arrayLength = newArrayWordsFixed.length - 1;
+    let arrayLastPosition = newArrayWordsFixed.length - 1;
     setArrayWords(newArrayWordsFixed);
-    setLength(arrayLength);
+    setArrayLastPosition(arrayLastPosition);
   }, [text]);
 
   React.useEffect(() => {
     keyInput.current.focus();
-    setText();
+    renderText();
   });
 
   return (
-    <section tabIndex='0' ref={keyInput} onKeyDown={keyDown} className='reader'>
-      <div className='container'>
-        <ReadButton
-          onClickButton={toggleModal}
-          customClass={'button-absolute'}
-          text={'x'}
-        />
-        <p className='reader-text'>{textToShow}</p>
-        <div className='button-container'>
-          <ReadButton onClickButton={prevWord} text={'prev'} />
-          <ReadButton onClickButton={nextWord} text={'next'} />
-        </div>
-      </div>
-    </section>
+    <ReaderUI
+      keyInput={keyInput}
+      keyDown={keyDown}
+      toggleModal={toggleModal}
+      increaseFontsize={increaseFontsize}
+      decreaseFontsize={decreaseFontsize}
+      fontsize={fontsize}
+      textToShow={textToShow}
+      prevWord={prevWord}
+      nextWord={nextWord}
+      renderText={renderText}
+      toggleAutoplay={toggleAutoplay}
+      increaseAutoplaySpeed={increaseAutoplaySpeed}
+      decreaseAutoplaySpeed={decreaseAutoplaySpeed}
+    />
   );
 };
 
