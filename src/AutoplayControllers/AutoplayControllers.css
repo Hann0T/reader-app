@@ -1,0 +1,10 @@
+.autoplay-controllers {
+  position: absolute;
+  bottom: 2em;
+  left: 50%;
+  width: 200px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transform: translateX(-50%);
+}
