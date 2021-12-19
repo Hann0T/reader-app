@@ -5,7 +5,10 @@ import './Button.css';
 const Button = ({ onClickButton, text, customClass }) => {
   if (!customClass) customClass = '';
   return (
-    <button onClick={onClickButton} className={`button ${customClass}`}>
+    <button
+      onClick={onClickButton}
+      className={`button ${customClass ? customClass : ''}`}
+    >
       {text}
     </button>
   );

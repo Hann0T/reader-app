@@ -2,6 +2,9 @@ import React from 'react';
 
 import { Button } from '../Button';
 import { AutoplayControllers } from '../AutoplayControllers';
+import { FontsizeControllers } from '../FontsizeControllers';
+
+import './Reader.css';
 
 const ReaderUI = ({
   keyInput,
@@ -13,6 +16,7 @@ const ReaderUI = ({
   textToShow,
   prevWord,
   renderText,
+  isAutoplay,
   toggleAutoplay,
   increaseAutoplaySpeed,
   decreaseAutoplaySpeed,
@@ -25,12 +29,11 @@ const ReaderUI = ({
           customClass={'button-absolute'}
           text={'x'}
         />
-        <div className='fontsize-changer'>
-          <p className='fontsize-text'>resize</p>
-          <Button onClickButton={increaseFontsize} text={'+'} />
-          <p className='fontsize-indicator'>{fontsize}</p>
-          <Button onClickButton={decreaseFontsize} text={'-'} />
-        </div>
+        <FontsizeControllers
+          fontsize={fontsize}
+          increaseFontsize={increaseFontsize}
+          decreaseFontsize={decreaseFontsize}
+        />
         <p className='reader-text' style={{ fontSize: `${fontsize}em` }}>
           {textToShow}
         </p>
@@ -38,6 +41,7 @@ const ReaderUI = ({
           increaseAutoplaySpeed={increaseAutoplaySpeed}
           decreaseAutoplaySpeed={decreaseAutoplaySpeed}
           toggleAutoplay={toggleAutoplay}
+          isAutoplay={isAutoplay}
         />
       </div>
     </section>

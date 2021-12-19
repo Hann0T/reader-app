@@ -2,8 +2,6 @@ import React from 'react';
 
 import { ReaderUI } from './ReaderUI';
 
-import './Reader.css';
-
 const Reader = ({ toggleModal, text, numberOfWords }) => {
   const [arrayWords, setArrayWords] = React.useState([]);
   const [arrayLastPosition, setArrayLastPosition] = React.useState(0);
@@ -77,11 +75,11 @@ const Reader = ({ toggleModal, text, numberOfWords }) => {
   React.useEffect(() => {
     if (!isAutoplay) return;
     if (textToShow === 'Se termino el texto') return;
-    const myInterval = setInterval(() => {
+    const intervalID = setInterval(() => {
       nextWord();
     }, autoplaySpeed);
     return () => {
-      clearInterval(myInterval);
+      clearInterval(intervalID);
     };
   });
 
@@ -110,6 +108,7 @@ const Reader = ({ toggleModal, text, numberOfWords }) => {
       prevWord={prevWord}
       nextWord={nextWord}
       renderText={renderText}
+      isAutoplay={isAutoplay}
       toggleAutoplay={toggleAutoplay}
       increaseAutoplaySpeed={increaseAutoplaySpeed}
       decreaseAutoplaySpeed={decreaseAutoplaySpeed}
