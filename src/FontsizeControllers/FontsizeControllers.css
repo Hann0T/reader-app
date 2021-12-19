@@ -1,0 +1,17 @@
+.fontsize-controllers {
+  position: absolute;
+  top: 1em;
+  left: 50%;
+  width: 150px;
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0 10px;
+  flex-wrap: wrap;
+  transform: translateX(-50%);
+}
+
+.fontsize-text {
+  flex-basis: 100%;
+}
