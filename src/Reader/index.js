@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { ReadButton } from '../ReadButton';
-
+import { Timer } from '../Timer';
 import './Reader.css';
 
 const Reader = ({ toggleModal, text, numberOfWords }) => {
@@ -66,6 +66,7 @@ const Reader = ({ toggleModal, text, numberOfWords }) => {
           <ReadButton onClickButton={prevWord} text={'prev'} />
           <ReadButton onClickButton={nextWord} text={'next'} />
         </div>
+        <Timer/>
       </div>
     </section>
   );
