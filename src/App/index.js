@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Modal } from '../Modal';
-import { ReadButton } from '../ReadButton';
+import { Button } from '../Button';
 import { Reader } from '../Reader';
 
 import './App.css';
@@ -41,7 +41,7 @@ function App() {
           className='text-input'
         />
         <div className='button-container'>
-          <ReadButton onClickButton={onClickButton} text={'Read Text'} />
+          <Button onClickButton={onClickButton} text={'Read Text'} />
         </div>
       </div>
       {openModal && (
