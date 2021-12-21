@@ -22,9 +22,18 @@ const ReaderUI = ({
   increaseAutoplaySpeed,
   decreaseAutoplaySpeed,
   autoplaySpeed,
+  onTouchStart,
+  onTouchEnd,
 }) => {
   return (
-    <section tabIndex='0' ref={keyInput} onKeyDown={keyDown} className='reader'>
+    <section
+      onTouchStart={onTouchStart}
+      onTouchEnd={onTouchEnd}
+      tabIndex='0'
+      ref={keyInput}
+      onKeyDown={keyDown}
+      className='reader'
+    >
       <div className='reader__content'>
         <Button
           onClickButton={toggleModal}

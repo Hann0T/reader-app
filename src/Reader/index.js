@@ -13,6 +13,7 @@ const Reader = ({ toggleModal, text, numberOfWords }) => {
   const [autoplaySpeed, setAutoplaySpeed] = React.useState(1000);
 
   let keyInput = React.createRef();
+  let firstTouchPosition = 0;
 
   const prevWord = () => {
     if (!position > 0) return;
@@ -41,6 +42,15 @@ const Reader = ({ toggleModal, text, numberOfWords }) => {
     if (ev.key === 'ArrowDown') return decreaseFontsize();
     if (ev.key === 'Escape') return toggleModal();
     if (ev.key === ' ') return toggleAutoplay();
+  };
+
+  const onTouchEnd = (ev) => {
+    let lastTouchPosition = ev.changedTouches[0].screenX;
+    if (firstTouchPosition > lastTouchPosition) prevWord();
+    if (firstTouchPosition < lastTouchPosition) nextWord();
+  };
+  const onTouchStart = (ev) => {
+    firstTouchPosition = ev.touches[0].screenX;
   };
 
   const renderText = () => {
@@ -113,6 +123,8 @@ const Reader = ({ toggleModal, text, numberOfWords }) => {
       increaseAutoplaySpeed={increaseAutoplaySpeed}
       decreaseAutoplaySpeed={decreaseAutoplaySpeed}
       autoplaySpeed={autoplaySpeed}
+      onTouchStart={onTouchStart}
+      onTouchEnd={onTouchEnd}
     />
   );
 };
