@@ -24,7 +24,7 @@ const ReaderUI = ({
 }) => {
   return (
     <section tabIndex='0' ref={keyInput} onKeyDown={keyDown} className='reader'>
-      <div className='reader-content'>
+      <div className='reader__content'>
         <Button
           onClickButton={toggleModal}
           customClass={'button-absolute'}
@@ -35,7 +35,10 @@ const ReaderUI = ({
           increaseFontsize={increaseFontsize}
           decreaseFontsize={decreaseFontsize}
         />
-        <p className='reader-text' style={{ fontSize: `${fontsize}em` }}>
+        <p
+          className='reader-text'
+          style={{ fontSize: `clamp(2em, ${fontsize}vw, 10em)` }}
+        >
           {textToShow}
         </p>
         <AutoplayControllers
