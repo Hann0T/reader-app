@@ -51,7 +51,7 @@ const Reader = ({ toggleModal, text, numberOfWords }) => {
       localText += arrayWords[position + i] ? arrayWords[position + i] : '';
     }
 
-    if (position >= arrayLastPosition + 1) localText = 'Se acabo el texto';
+    if (position >= arrayLastPosition + 1) localText = 'Se acabó el texto';
     if (arrayLastPosition < 0) localText = 'No hay texto para mostrar';
 
     setTextToShow(localText);
@@ -74,7 +74,7 @@ const Reader = ({ toggleModal, text, numberOfWords }) => {
   // AutoPlay
   React.useEffect(() => {
     if (!isAutoplay) return;
-    if (textToShow === 'Se termino el texto') return;
+    if (position >= arrayLastPosition + 1) return;
     const intervalID = setInterval(() => {
       nextWord();
     }, autoplaySpeed);
