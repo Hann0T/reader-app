@@ -42,6 +42,7 @@ const ReaderUI = ({
         >
           {textToShow}
         </p>
+        <Timer />
         <AutoplayControllers
           increaseAutoplaySpeed={increaseAutoplaySpeed}
           decreaseAutoplaySpeed={decreaseAutoplaySpeed}
@@ -49,7 +50,6 @@ const ReaderUI = ({
           isAutoplay={isAutoplay}
           autoplaySpeed={autoplaySpeed}
         />
-        <Timer />
       </div>
     </section>
   );
