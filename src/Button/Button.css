@@ -1,17 +1,25 @@
 .button {
   padding: 0.5em 1em;
-  background-color: white;
-  border: 1px solid black;
+  background-color: var(--button-bg-color);
+  color: var(--text-color);
+  border: 0;
   border-radius: 5px;
   cursor: pointer;
 }
 .button:hover {
-  color: white;
-  background-color: black;
+  color: var(--text-color);
+  background-color: var(--body-bg-color);
 }
 
 .button-absolute {
   position: absolute;
   right: -1em;
   top: -1em;
+}
+
+@media screen and (max-width: 576px) {
+  .button-absolute {
+    right: 1em;
+    top: 1em;
+  }
 }
