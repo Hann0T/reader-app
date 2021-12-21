@@ -15,7 +15,7 @@
   margin-top: 1em;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 576px) {
   .autoplay-controllers {
     bottom: 5em;
   }

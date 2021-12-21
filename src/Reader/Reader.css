@@ -34,7 +34,6 @@
     height: 100vh;
     min-height: 100vh;
     min-width: 100vw;
-    overflow-x: hidden;
-    overflow-y: auto;
+    border-radius: 0;
   }
 }
