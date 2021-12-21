@@ -3,7 +3,7 @@
   background-color: var(--button-bg-color);
   color: var(--text-color);
   border: 0;
-  font-size: clamp(1m, 2vw, 20px);
+  font-size: clamp(1em, 2vw, 18px);
   border-radius: 5px;
   cursor: pointer;
 }
