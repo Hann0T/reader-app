@@ -3,6 +3,7 @@ import React from 'react';
 import { Button } from '../Button';
 import { AutoplayControllers } from '../AutoplayControllers';
 import { FontsizeControllers } from '../FontsizeControllers';
+import { Timer } from '../Timer';
 
 import './Reader.css';
 
@@ -43,6 +44,7 @@ const ReaderUI = ({
           toggleAutoplay={toggleAutoplay}
           isAutoplay={isAutoplay}
         />
+        <Timer />
       </div>
     </section>
   );
