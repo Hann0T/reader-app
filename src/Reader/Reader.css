@@ -32,7 +32,7 @@
   .reader {
     width: 100vw;
     height: 100vh;
-    max-height: unset;
-    max-width: unset;
+    min-height: 100vh;
+    min-width: 100vw;
   }
 }

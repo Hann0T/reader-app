@@ -14,3 +14,9 @@
   flex-basis: 100%;
   margin-top: 1em;
 }
+
+@media screen and (max-width: 768px) {
+  .autoplay-controllers {
+    bottom: 5em;
+  }
+}
