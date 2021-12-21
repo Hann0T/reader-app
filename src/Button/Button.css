@@ -17,7 +17,7 @@
   top: -1em;
 }
 
-@media screen and (max-width: 576px) {
+@media screen and (max-width: 768px) {
   .button-absolute {
     right: 1em;
     top: 1em;
