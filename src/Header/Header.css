@@ -1,0 +1,7 @@
+.header {
+  box-sizing: border-box;
+  padding: 1em 0;
+  margin-bottom: 2em;
+  background-color: var(--text-color);
+  color: var(--body-bg-color);
+}
