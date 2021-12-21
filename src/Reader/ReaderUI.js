@@ -24,7 +24,7 @@ const ReaderUI = ({
 }) => {
   return (
     <section tabIndex='0' ref={keyInput} onKeyDown={keyDown} className='reader'>
-      <div className='container'>
+      <div className='reader-content'>
         <Button
           onClickButton={toggleModal}
           customClass={'button-absolute'}
