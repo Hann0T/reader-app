@@ -42,3 +42,9 @@ h6 {
     margin: 0 50px;
   }
 }
+
+@media screen and (max-width: 768px) {
+  body {
+    overflow: hidden;
+  }
+}
