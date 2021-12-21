@@ -11,10 +11,10 @@ const FontsizeControllers = ({
 }) => {
   return (
     <div className='fontsize-controllers'>
-      <p className='fontsize-text'>resize</p>
-      <Button onClickButton={increaseFontsize} text={'+'} />
-      <p className='fontsize-indicator'>{fontsize}</p>
+      <p className='fontsize-text'>Tamaño de Fuente</p>
       <Button onClickButton={decreaseFontsize} text={'-'} />
+      <p className='fontsize-indicator'>{fontsize}</p>
+      <Button onClickButton={increaseFontsize} text={'+'} />
     </div>
   );
 };

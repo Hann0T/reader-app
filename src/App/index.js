@@ -37,11 +37,11 @@ function App() {
         <textarea
           value={text}
           onChange={onChangeTextArea}
-          placeholder='your text...'
+          placeholder='tu texto...'
           className='text-input'
         />
         <div className='button-container'>
-          <Button onClickButton={onClickButton} text={'Read Text'} />
+          <Button onClickButton={onClickButton} text={'Leer Texto'} />
         </div>
       </div>
       {openModal && (

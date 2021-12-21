@@ -12,12 +12,12 @@ const AutoplayControllers = ({
 }) => {
   return (
     <div className='autoplay-controllers'>
-      <Button onClickButton={increaseAutoplaySpeed} text={'+'} />
+      <Button onClickButton={decreaseAutoplaySpeed} text={'-'} />
       <Button
         onClickButton={toggleAutoplay}
         text={isAutoplay ? 'pause' : 'play'}
       />
-      <Button onClickButton={decreaseAutoplaySpeed} text={'-'} />
+      <Button onClickButton={increaseAutoplaySpeed} text={'+'} />
     </div>
   );
 };
