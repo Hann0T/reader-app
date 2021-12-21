@@ -9,6 +9,7 @@ const AutoplayControllers = ({
   toggleAutoplay,
   increaseAutoplaySpeed,
   decreaseAutoplaySpeed,
+  autoplaySpeed,
 }) => {
   return (
     <div className='autoplay-controllers'>
@@ -18,6 +19,7 @@ const AutoplayControllers = ({
         text={isAutoplay ? 'pause' : 'play'}
       />
       <Button onClickButton={increaseAutoplaySpeed} text={'+'} />
+      <p className='autoplay-speed'>Velocidad: {autoplaySpeed / 1000}s</p>
     </div>
   );
 };

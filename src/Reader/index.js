@@ -112,6 +112,7 @@ const Reader = ({ toggleModal, text, numberOfWords }) => {
       toggleAutoplay={toggleAutoplay}
       increaseAutoplaySpeed={increaseAutoplaySpeed}
       decreaseAutoplaySpeed={decreaseAutoplaySpeed}
+      autoplaySpeed={autoplaySpeed}
     />
   );
 };

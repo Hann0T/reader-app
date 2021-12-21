@@ -21,6 +21,7 @@ const ReaderUI = ({
   toggleAutoplay,
   increaseAutoplaySpeed,
   decreaseAutoplaySpeed,
+  autoplaySpeed,
 }) => {
   return (
     <section tabIndex='0' ref={keyInput} onKeyDown={keyDown} className='reader'>
@@ -46,6 +47,7 @@ const ReaderUI = ({
           decreaseAutoplaySpeed={decreaseAutoplaySpeed}
           toggleAutoplay={toggleAutoplay}
           isAutoplay={isAutoplay}
+          autoplaySpeed={autoplaySpeed}
         />
         <Timer />
       </div>
