@@ -46,8 +46,8 @@ const Reader = ({ toggleModal, text, numberOfWords }) => {
 
   const onTouchEnd = (ev) => {
     let lastTouchPosition = ev.changedTouches[0].screenX;
-    if (firstTouchPosition > lastTouchPosition) prevWord();
-    if (firstTouchPosition < lastTouchPosition) nextWord();
+    if (firstTouchPosition > lastTouchPosition) nextWord();
+    if (firstTouchPosition < lastTouchPosition) prevWord();
   };
   const onTouchStart = (ev) => {
     firstTouchPosition = ev.touches[0].screenX;
