@@ -4,7 +4,6 @@ import { ReaderUI } from './ReaderUI';
 
 const Reader = ({ toggleModal, text, numberOfWords }) => {
   const [arrayWords, setArrayWords] = React.useState([]);
-  const [arrayLastPosition, setArrayLastPosition] = React.useState(0);
 
   const [fontsize, setFontsize] = React.useState(2);
   const [textToShow, setTextToShow] = React.useState('');
@@ -21,7 +20,7 @@ const Reader = ({ toggleModal, text, numberOfWords }) => {
   };
 
   const nextWord = () => {
-    if (position > arrayLastPosition) return;
+    if (position > arrayWords.length - 1) return;
     setPosition((prevState) => prevState + numberOfWords);
   };
 
@@ -44,13 +43,13 @@ const Reader = ({ toggleModal, text, numberOfWords }) => {
     if (ev.key === ' ') return toggleAutoplay();
   };
 
+  const onTouchStart = (ev) => {
+    firstTouchPosition = ev.touches[0].screenX;
+  };
   const onTouchEnd = (ev) => {
     let lastTouchPosition = ev.changedTouches[0].screenX;
     if (firstTouchPosition > lastTouchPosition) nextWord();
     if (firstTouchPosition < lastTouchPosition) prevWord();
-  };
-  const onTouchStart = (ev) => {
-    firstTouchPosition = ev.touches[0].screenX;
   };
 
   const renderText = () => {
@@ -61,8 +60,8 @@ const Reader = ({ toggleModal, text, numberOfWords }) => {
       localText += arrayWords[position + i] ? arrayWords[position + i] : '';
     }
 
-    if (position >= arrayLastPosition + 1) localText = 'Se acabó el texto';
-    if (arrayLastPosition < 0) localText = 'No hay texto para mostrar';
+    if (position >= arrayWords.length) localText = 'Se acabó el texto';
+    if (arrayWords.length <= 0) localText = 'No hay texto para mostrar';
 
     setTextToShow(localText);
   };
@@ -84,7 +83,7 @@ const Reader = ({ toggleModal, text, numberOfWords }) => {
   // AutoPlay
   React.useEffect(() => {
     if (!isAutoplay) return;
-    if (position >= arrayLastPosition + 1) return;
+    if (position >= arrayWords.length) return;
     const intervalID = setInterval(() => {
       nextWord();
     }, autoplaySpeed);
@@ -94,11 +93,8 @@ const Reader = ({ toggleModal, text, numberOfWords }) => {
   });
 
   React.useEffect(() => {
-    let newArrayWords = text.split(/ |\n/);
-    let newArrayWordsFixed = newArrayWords.filter((word) => word);
-    let arrayLastPosition = newArrayWordsFixed.length - 1;
-    setArrayWords(newArrayWordsFixed);
-    setArrayLastPosition(arrayLastPosition);
+    let newArrayWords = text.split(/ |\n/).filter((word) => word);
+    setArrayWords(newArrayWords);
   }, [text]);
 
   React.useEffect(() => {
